@@ -91,10 +91,6 @@ export const Homepage = () => {
     console.log("Retrieved total wave count: ", count.toNumber());
   };
 
-  const toggleAlert = () => {
-      setAlertBox(!alertBox);
-  }
-
   React.useEffect(() => {
     checkWalletConnection();
   }, []);
@@ -130,7 +126,7 @@ export const Homepage = () => {
 
         <ButtonGroup>
           <Button
-            onClick={currentAccount ? wave : () => toggleAlert()}
+            onClick={currentAccount ? wave : () => setAlertBox(true)}
             colorScheme="yellow"
             isLoading={waveLoading}
             loadingText="waving..."
@@ -141,7 +137,7 @@ export const Homepage = () => {
             <Button
               onClick={() => {
                 connectWallet();
-                toggleAlert();
+                setAlertBox(false);
               }}
               colorScheme="whatsapp"
               variant="outline"
@@ -161,7 +157,7 @@ export const Homepage = () => {
             </AlertDescription>
             </Box>
             
-            <CloseButton onClick={() => toggleAlert()} position="absolute" right="4px" top="8px" />
+            <CloseButton onClick={() => setAlertBox(false)} position="absolute" right="4px" top="8px" />
           </Alert>
         </Box>)}
       </Flex>

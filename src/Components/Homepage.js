@@ -18,7 +18,8 @@ export const Homepage = () => {
   const [currentAccount, setCurrentAccount] = React.useState("");
   const [alertBox, setAlertBox] = React.useState(false);
   const [waveLoading, setWaveLoading] = React.useState(false);
-  
+  const [count, setCount] = React.useState(undefined);
+
   // Address of the contract I deployed on the blockchain
   const contractAddress = "0x1783aD7C27c0D7148BE7f373DacC7f55DebbD878";
   const contractABI = abi.abi;
@@ -75,6 +76,7 @@ export const Homepage = () => {
     );
 
     let count = await wavePortalContract.getTotalWaves();
+    setCount(count.toNumber());
     console.log("Retrieved total wave count: ", count.toNumber());
     // loading On at wave button
     setWaveLoading(true);
@@ -85,6 +87,7 @@ export const Homepage = () => {
     // loading off at wave button
     setWaveLoading(false);
     count = await wavePortalContract.getTotalWaves();
+    setCount(count.toNumber());
     console.log("Retrieved total wave count: ", count.toNumber());
   };
 
@@ -161,6 +164,10 @@ export const Homepage = () => {
           </Alert>
         </Box>)}
       </Flex>
+      
+      {count && (<Box mt={6}>
+          <Text fontSize="3xl">Total Waves: {count}</Text>
+      </Box>)}
     </Flex>
   );
 };

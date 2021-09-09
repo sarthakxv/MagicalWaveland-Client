@@ -22,7 +22,7 @@ export const Homepage = () => {
   const [count, setCount] = React.useState(undefined);
 
   // Color Mode
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode } = useColorMode();
 
   // Address of the contract I deployed on the blockchain
   const contractAddress = "0x1783aD7C27c0D7148BE7f373DacC7f55DebbD878";

@@ -133,6 +133,7 @@ export const Homepage = () => {
             onClick={currentAccount ? wave : () => toggleAlert()}
             colorScheme="yellow"
             isLoading={waveLoading}
+            loadingText="waving..."
           >
             Wave at Me
           </Button>

@@ -11,6 +11,7 @@ import {
   Text,
   Button,
   CloseButton,
+  useColorMode
 } from "@chakra-ui/react";
 import Header from "./Header";
 
@@ -19,6 +20,9 @@ export const Homepage = () => {
   const [alertBox, setAlertBox] = React.useState(false);
   const [waveLoading, setWaveLoading] = React.useState(false);
   const [count, setCount] = React.useState(undefined);
+
+  // Color Mode
+  const { colorMode, toggleColorMode } = useColorMode();
 
   // Address of the contract I deployed on the blockchain
   const contractAddress = "0x1783aD7C27c0D7148BE7f373DacC7f55DebbD878";
@@ -115,7 +119,7 @@ export const Homepage = () => {
           p={8}
           m="45px 15px"
           maxW="600"
-          bg="blue.50"
+          bg={colorMode === "light" ? "blue.50" : "blue.800"}
           rounded="xl"
           boxShadow="0 5px 9px -1px rgba(0,0,0,0.21)"
         >

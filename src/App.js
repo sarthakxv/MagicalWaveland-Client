@@ -1,11 +1,11 @@
 import * as React from "react";
-// import "./App.css";
 import { ChakraProvider } from "@chakra-ui/react";
+import theme from "./theme";
 import Homepage from "./Components/Homepage";
 
 export const App = () => {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <Homepage />
     </ChakraProvider>
   );

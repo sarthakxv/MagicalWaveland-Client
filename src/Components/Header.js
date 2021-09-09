@@ -16,6 +16,7 @@ import {
   useDisclosure,
   Tooltip,
   useClipboard,
+  useColorMode,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -29,6 +30,7 @@ import Identicon from "react-identicons";
 export const WithSubnavigation = (props) => {
   const { isOpen, onToggle } = useDisclosure();
   const { hasCopied, onCopy } = useClipboard(props.address);
+  const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <Box>
@@ -88,8 +90,7 @@ export const WithSubnavigation = (props) => {
               leftIcon={<FaEthereum />}
               m="0 10px 0 10px"
               onClick={onCopy}
-              color="black"
-              bgColor="whitesmoke"
+              color={colorMode === "light" ? "gray.700" : "gray.100"}
               variant="solid"
             >
               {hasCopied ? "Copied" : props.address.slice(0, 7)}
@@ -111,6 +112,10 @@ export const WithSubnavigation = (props) => {
             Connect Wallet
           </Button>
         )}
+
+        <Button onClick={toggleColorMode} ml={2}>
+          Toggle {colorMode === "light" ? "Dark" : "Light"}
+        </Button>
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>

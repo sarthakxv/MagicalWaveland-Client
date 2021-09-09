@@ -10,9 +10,9 @@ import {
   Box,
   Text,
   Button,
-  ButtonGroup,
   CloseButton,
 } from "@chakra-ui/react";
+import Header from "./Header";
 
 export const Homepage = () => {
   const [currentAccount, setCurrentAccount] = React.useState("");
@@ -96,35 +96,40 @@ export const Homepage = () => {
   }, []);
 
   return (
-    <Flex
-      justify="center"
-      align="center"
-      direction="column"
-      mt="64px"
-      margin={8}
-    >
+    <Box>
+      <Header
+        connectWallet={connectWallet}
+        setAlertBox={setAlertBox}
+        address={currentAccount}
+      />
       <Flex
         justify="center"
         align="center"
         direction="column"
-        p={8}
-        maxW="600"
-        bg="blue.50"
-        rounded="xl"
-        boxShadow="0 5px 9px -1px rgba(0,0,0,0.21)"
+        w="full"
       >
-        <Text fontSize="4xl" textAlign="center" fontWeight="bold">
-          <span role="img" aria-label="wave">
-            👋
-          </span>{" "}
-          Hello, I'm a decentralized bot
-        </Text>
-        <Text fontSize="md" m={5} textAlign="center">
-          I am Sarthak and I am having fun building on Web3. That's pretty cool
-          right? Connect your Ethereum wallet and wave at me!
-        </Text>
+        <Flex
+          justify="center"
+          align="center"
+          direction="column"
+          p={8}
+          m="45px 15px"
+          maxW="600"
+          bg="blue.50"
+          rounded="xl"
+          boxShadow="0 5px 9px -1px rgba(0,0,0,0.21)"
+        >
+          <Text fontSize="4xl" textAlign="center" fontWeight="bold">
+            <span role="img" aria-label="wave">
+              👋
+            </span>{" "}
+            Hello, I'm a decentralized bot
+          </Text>
+          <Text fontSize="md" m={5} textAlign="center">
+            I am Sarthak and I am having fun building on Web3. That's pretty
+            cool right? Connect your Ethereum wallet and wave at me!
+          </Text>
 
-        <ButtonGroup>
           <Button
             onClick={currentAccount ? wave : () => setAlertBox(true)}
             colorScheme="yellow"
@@ -133,39 +138,43 @@ export const Homepage = () => {
           >
             Wave at Me
           </Button>
-          {currentAccount ? null : (
-            <Button
-              onClick={() => {
-                connectWallet();
-                setAlertBox(false);
-              }}
-              colorScheme="whatsapp"
-              variant="outline"
-            >
-              Connect Wallet
-            </Button>
-          )}
-        </ButtonGroup>
 
-        {alertBox && (<Box mt={3} w="sm">
-          <Alert status="error" rounded="lg" flexDirection="row" alignItems="center" justifyContent="center" textAlign="center">
-            <AlertIcon />
-            <Box flex="1">
-                <AlertTitle mr={2}>Wallet not connected!</AlertTitle>
-            <AlertDescription>
-              Please connect your wallet first.
-            </AlertDescription>
+          {alertBox && (
+            <Box mt={3} w="sm">
+              <Alert
+                status="error"
+                rounded="lg"
+                flexDirection="row"
+                alignItems="center"
+                justifyContent="center"
+                textAlign="center"
+              >
+                <AlertIcon />
+                <Box flex="1">
+                  <AlertTitle mr={2}>Wallet not connected!</AlertTitle>
+                  <AlertDescription>
+                    Please connect your wallet first.
+                  </AlertDescription>
+                </Box>
+
+                <CloseButton
+                  onClick={() => setAlertBox(false)}
+                  position="absolute"
+                  right="4px"
+                  top="8px"
+                />
+              </Alert>
             </Box>
-            
-            <CloseButton onClick={() => setAlertBox(false)} position="absolute" right="4px" top="8px" />
-          </Alert>
-        </Box>)}
+          )}
+        </Flex>
+
+        {count && (
+          <Box mt={6}>
+            <Text fontSize="3xl">Total Waves: {count}</Text>
+          </Box>
+        )}
       </Flex>
-      
-      {count && (<Box mt={6}>
-          <Text fontSize="3xl">Total Waves: {count}</Text>
-      </Box>)}
-    </Flex>
+    </Box>
   );
 };
 

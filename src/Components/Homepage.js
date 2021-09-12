@@ -148,7 +148,7 @@ export const Homepage = () => {
 
   React.useEffect(() => {
     checkWalletConnection();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -177,17 +177,24 @@ export const Homepage = () => {
             </span>{" "}
             Hello, I'm a decentralized bot
           </Text>
-          <Text fontSize="md" m={5} textAlign="center">
-            Hello there, I'm Sarthak, a developer and currently exploring
-            Blockchain! That's pretty cool right? Connect your Ethereum wallet
-            and wave at me!
+          <Text fontSize="md" mt={4} textAlign="center">
+            I'm Sarthak, currently exploring Blockchain Rabbit-hole.
+          </Text>
+          <Text fontSize="md" textAlign="center">
+            Connect your Ethereum wallet via Metamask (Use Rinkeby Network) and
+            wave at me!
+          </Text>
+          <Text fontSize="md" mb={4} textAlign="center">
+            PS: Get a chance to win some ETH 😉
           </Text>
 
-          <TextInputArea
-            value={msgValue}
-            handleInputChange={handleInputChange}
-            colorMode={colorMode}
-          />
+          {currentAccount && (
+            <TextInputArea
+              value={msgValue}
+              handleInputChange={handleInputChange}
+              colorMode={colorMode}
+            />
+          )}
 
           <Button
             onClick={currentAccount ? wave : () => setAlertBox(true)}
@@ -275,7 +282,7 @@ const TextInputArea = (props) => (
     rounded="lg"
     bg={props.colorMode === "light" ? "messenger.50" : "#3B4B6C"}
   >
-    <Text mb="8px">Message: {props.value}</Text>
+    {/* <Text mb="8px">Message: {props.value}</Text> */}
     <Textarea
       value={props.value}
       onChange={props.handleInputChange}

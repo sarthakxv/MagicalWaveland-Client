@@ -148,6 +148,7 @@ export const Homepage = () => {
 
   React.useEffect(() => {
     checkWalletConnection();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

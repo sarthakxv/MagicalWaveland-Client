@@ -15,8 +15,10 @@ import {
   Textarea,
   VStack,
   StackDivider,
+  useColorModeValue
 } from "@chakra-ui/react";
 import Header from "./Header";
+import Footer from "./Footer";
 import bgGrade from "../utils/images/bgGrad.png";
 
 export const Homepage = () => {
@@ -32,27 +34,28 @@ export const Homepage = () => {
 
   // Color Mode of Chakra UI
   const { colorMode } = useColorMode();
-
   // Address of the contract I deployed on the blockchain
-  const contractAddress = "0xB6fff5d1E1f38f7F78DD0e2F9122d20D04B8af61";
+  const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
   const contractABI = abi.abi;
 
   // check if wallet is available
   const checkWalletConnection = () => {
     const { ethereum } = window;
 
-    if (!ethereum) {
-      console.log("Make sure you've metamask installed");
-    } else {
-      console.log(`Great! The ethereum object is here: `, ethereum);
-    }
+    // if (!ethereum) {
+    //   console.log("Make sure you've metamask installed");
+    // } else {
+    //   console.log(`Great! The ethereum object is here: `, ethereum);
+    // }
 
     // checking if we're authorized to access user's wallet
     ethereum.request({ method: "eth_accounts" }).then((accounts) => {
       if (accounts.length !== 0) {
         // as accounts isn't empty, picking the first one
         const account = accounts[0];
-        console.log("Authorized account found: ", account);
+        
+        // console.log("Authorized account found: ", account);
+
         // Storing the user's public wallet address for later
         setCurrentAccount(account);
         getAllWaves();
@@ -73,7 +76,7 @@ export const Homepage = () => {
     ethereum
       .request({ method: "eth_requestAccounts" })
       .then((accounts) => {
-        console.log("Connected: ", accounts[0]);
+        // console.log("Connected: ", accounts[0]);
         setCurrentAccount(accounts[0]);
       })
       .catch((err) => console.log("Error: ", err));
@@ -91,22 +94,22 @@ export const Homepage = () => {
 
     let count = await wavePortalContract.getTotalWaves();
     setCount(count.toNumber());
-    console.log("Retrieved total wave count: ", count.toNumber());
+    // console.log("Retrieved total wave count: ", count.toNumber());
     // loading On at wave button
     setWaveLoading(true);
     const waveTxn = await wavePortalContract.wave(msgValue, {
       gasLimit: 300000,
     });
-    console.log("Mining... ", waveTxn.hash);
+    // console.log("Mining... ", waveTxn.hash);
     await waveTxn.wait();
-    console.log("WaveTxn -- ", waveTxn.hash);
+    // console.log("WaveTxn -- ", waveTxn.hash);
     // loading off at wave button
     setWaveLoading(false);
     // emptying the text area
     setMsgValue("");
     count = await wavePortalContract.getTotalWaves();
     setCount(count.toNumber());
-    console.log("Retrieved total wave count: ", count.toNumber());
+    // console.log("Retrieved total wave count: ", count.toNumber());
   };
 
   const getAllWaves = async () => {
@@ -129,11 +132,11 @@ export const Homepage = () => {
         message: wave[1],
       });
     });
-    console.log("Waves cleaned: ", waves);
+    // console.log("Waves cleaned: ", waves);
     setAllWaves(wavesCleaned);
 
     wavePortalContract.on("NewWave", (from, timestamp, message) => {
-      console.log("NewWave: ", from, timestamp, message);
+      // console.log("NewWave: ", from, timestamp, message);
       setAllWaves((oldArray) => [
         ...oldArray,
         {
@@ -200,7 +203,7 @@ export const Homepage = () => {
             <TextInputArea
               value={msgValue}
               handleInputChange={handleInputChange}
-              colorMode={colorMode}
+              colorMode={useColorModeValue}
             />
           )}
 
@@ -222,8 +225,9 @@ export const Homepage = () => {
           </Box>
         )}
 
-        <WaveDisplay allWaves={allWaves} colorMode={colorMode} />
+        <WaveDisplay allWaves={allWaves} colorMode={useColorModeValue} />
       </Flex>
+      <Footer />
     </Box>
   );
 };
@@ -258,20 +262,20 @@ const AlertBox = (props) => (
 const WaveDisplay = (props) => {
   return (
     <VStack
-      divider={<StackDivider borderColor="gray.200" />}
+      divider={<StackDivider borderColor={useColorModeValue("gray.200", "gray.700")} />}
       spacing="2"
       align="center"
     >
       {props.allWaves.map((wave, index) => (
-        <Box p={2} m={2} w="75%">
+        <Box p={2} m={2} w="75%" key={index}>
           <Box
-            bgColor={props.colorMode === "light" ? "green.100" : "#60846A"}
+            bgColor={props.colorMode("green.100", "#60846A")}
             p={4}
             key={index}
             rounded="lg"
             boxShadow="0 5px 9px -1px rgba(0,0,0,0.21)"
             border="1px"
-            borderColor={props.colorMode === "light" ? "#DAF6E2" : "#8AAF94"}
+            borderColor={props.colorMode("#DAF6E2", "#8AAF94")}
           >
             <Text>
               <b>Address:</b> {wave.address}
@@ -300,7 +304,7 @@ const TextInputArea = (props) => (
       borderColor="#808A91"
       rounded="md"
       outline="none"
-      bgColor={ props.colorMode==="light" ? "white" : "#1A202C" }
+      bgColor={ props.colorMode("white", "#1A202C") }
       resize="none"
     />
   </Box>

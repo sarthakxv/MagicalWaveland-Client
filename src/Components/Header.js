@@ -37,29 +37,18 @@ export const WithSubnavigation = (props) => {
     <Box
       position="sticky"
       top="0"
-      bg={
-        colorMode === "light"
-          ? "rgba(255,255,255,0.3)"
-          : "rgba(17, 25, 40, 0.75)"
-      }
+      bg={useColorModeValue("rgba(255,255,255,0.3)", "rgba(17, 25, 40, 0.75)")}
       backdropFilter="blur(12px) saturate(0%)"
-      borderBottom={
-        colorMode === "light"
-          ? "1px solid rgba(209, 213, 219, 0.3)"
-          : "1px solid rgba(255, 255, 255, 0.125)"
-      }
+      borderBottom={useColorModeValue("1px solid rgba(209, 213, 219, 0.3)","1px solid rgba(255, 255, 255, 0.125)")}
       minH="8vh"
     >
       <Flex
-        // bg={useColorModeValue("white", "gray.800")}
         color={useColorModeValue("gray.600", "white")}
-        minH={"60px"}
+        minH="60px"
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
-        // borderStyle="solid"
-        // borderColor={useColorModeValue("gray.200", "gray.900")}
-        align={"center"}
+        align="center"
       >
         <Flex
           flex={{ base: 1, md: "auto" }}
@@ -132,7 +121,7 @@ export const WithSubnavigation = (props) => {
         )}
 
         <Box onClick={toggleColorMode} ml={2} mr={2} cursor="pointer">
-          {colorMode === "dark" ? <HiSun size="20" /> : <HiMoon size="20" />}
+          {colorMode === "dark" ? <HiSun size="25" /> : <HiMoon size="25" />}
         </Box>
       </Flex>
 

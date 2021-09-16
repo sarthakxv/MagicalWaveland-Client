@@ -24,6 +24,7 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from "@chakra-ui/icons";
+import { HiSun, HiMoon } from "react-icons/hi";
 import { FaEthereum } from "react-icons/fa";
 import Identicon from "react-identicons";
 
@@ -33,16 +34,23 @@ export const WithSubnavigation = (props) => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
-    <Box>
+    <Box
+      position="sticky"
+      top="0"
+      bg={ colorMode === "light" ? "rgba(255,255,255,0.3)" : "rgba(17, 25, 40, 0.75)" }
+      backdropFilter="blur(12px) saturate(0%)"
+      borderBottom={ colorMode === "light" ? "1px solid rgba(209, 213, 219, 0.3)" : "1px solid rgba(255, 255, 255, 0.125)" }
+      minH="8vh"
+    >
       <Flex
-        bg={useColorModeValue("white", "gray.800")}
+        // bg={useColorModeValue("white", "gray.800")}
         color={useColorModeValue("gray.600", "white")}
         minH={"60px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
-        borderStyle={"solid"}
-        borderColor={useColorModeValue("gray.200", "gray.900")}
+        // borderStyle="solid"
+        // borderColor={useColorModeValue("gray.200", "gray.900")}
         align={"center"}
       >
         <Flex
@@ -92,6 +100,7 @@ export const WithSubnavigation = (props) => {
               onClick={onCopy}
               color={colorMode === "light" ? "gray.700" : "gray.100"}
               variant="solid"
+              rounded="full"
             >
               {hasCopied ? "Copied" : props.address.slice(0, 7)}
             </Button>
@@ -113,8 +122,8 @@ export const WithSubnavigation = (props) => {
           </Button>
         )}
 
-        <Button onClick={toggleColorMode} ml={2}>
-          Toggle {colorMode === "light" ? "Dark" : "Light"}
+        <Button onClick={toggleColorMode} ml={2} variant="ghost" rounded="full">
+          { colorMode === "dark" ? <HiSun/> : <HiMoon/> }
         </Button>
       </Flex>
 
@@ -131,7 +140,7 @@ const DesktopNav = () => {
   const popoverContentBgColor = useColorModeValue("white", "gray.800");
 
   return (
-    <Stack direction={"row"} spacing={4}>
+    <Stack direction="row" spacing={4}>
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem.label}>
           <Popover trigger={"hover"} placement={"bottom-start"}>

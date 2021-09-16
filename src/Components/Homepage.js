@@ -13,8 +13,11 @@ import {
   CloseButton,
   useColorMode,
   Textarea,
+  VStack,
+  StackDivider,
 } from "@chakra-ui/react";
 import Header from "./Header";
+import bgGrade from "../utils/images/bgGrad.png";
 
 export const Homepage = () => {
   // getting address of connected wallet
@@ -158,7 +161,15 @@ export const Homepage = () => {
         setAlertBox={setAlertBox}
         address={currentAccount}
       />
-      <Flex justify="center" align="center" direction="column" w="full">
+      <Flex
+        justify="center"
+        align="center"
+        direction="column"
+        w="full"
+        bgImg={bgGrade}
+        bgRepeat="no-repeat"
+        minH="92vh"
+      >
         <Flex
           justify="center"
           align="center"
@@ -166,10 +177,7 @@ export const Homepage = () => {
           p={8}
           m="45px 15px"
           maxW="600"
-          bg={colorMode === "light" ? "messenger.100" : "blue.800"}
           rounded="xl"
-          boxShadow="0 5px 9px -1px rgba(0,0,0,0.21)"
-          // border
         >
           <Text fontSize="4xl" textAlign="center" fontWeight="bold">
             <span role="img" aria-label="wave">
@@ -248,47 +256,53 @@ const AlertBox = (props) => (
 );
 
 const WaveDisplay = (props) => {
-  return props.allWaves.map((wave, index) => (
-    <Flex p={2} m={2} align="center" justify="center">
-      <Box
-        bgColor={props.colorMode === "light" ? "green.100" : "#60846A"}
-        p={4}
-        key={index}
-        rounded="lg"
-        boxShadow="0 5px 9px -1px rgba(0,0,0,0.21)"
-        border="1px"
-        borderColor={props.colorMode === "light" ? "#DAF6E2" : "#8AAF94"}
-      >
-        <Text>
-          <b>Address:</b> {wave.address}
-        </Text>
-        <Text>
-          <b>Time:</b> {wave.timestamp.toString()}
-        </Text>
-        <Text>
-          <b>Message:</b> {wave.message}
-        </Text>
-      </Box>
-    </Flex>
-  ));
+  return (
+    <VStack
+      divider={<StackDivider borderColor="gray.200" />}
+      spacing="2"
+      align="center"
+    >
+      {props.allWaves.map((wave, index) => (
+        <Box p={2} m={2} w="75%">
+          <Box
+            bgColor={props.colorMode === "light" ? "green.100" : "#60846A"}
+            p={4}
+            key={index}
+            rounded="lg"
+            boxShadow="0 5px 9px -1px rgba(0,0,0,0.21)"
+            border="1px"
+            borderColor={props.colorMode === "light" ? "#DAF6E2" : "#8AAF94"}
+          >
+            <Text>
+              <b>Address:</b> {wave.address}
+            </Text>
+            <Text>
+              <b>Time:</b> {wave.timestamp.toString()}
+            </Text>
+            <Text>
+              <b>Message:</b> {wave.message}
+            </Text>
+          </Box>
+        </Box>
+      ))}
+    </VStack>
+  );
 };
 
 const TextInputArea = (props) => (
-  <Box
-    border="2px"
-    borderColor={props.colorMode === "light" ? "#E1EFFF" : "#46587F"}
-    mb={2}
-    p={4}
-    rounded="lg"
-    bg={props.colorMode === "light" ? "messenger.50" : "#3B4B6C"}
-  >
-    {/* <Text mb="8px">Message: {props.value}</Text> */}
+  <Box m={4} w="80%">
     <Textarea
       value={props.value}
       onChange={props.handleInputChange}
-      placeholder="Write your message here..."
+      placeholder="Your message..."
       size="lg"
-    ></Textarea>
+      border="1px"
+      borderColor="#808A91"
+      rounded="md"
+      outline="none"
+      bgColor={ props.colorMode==="light" ? "white" : "#1A202C" }
+      resize="none"
+    />
   </Box>
 );
 

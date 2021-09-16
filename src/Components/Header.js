@@ -37,9 +37,17 @@ export const WithSubnavigation = (props) => {
     <Box
       position="sticky"
       top="0"
-      bg={ colorMode === "light" ? "rgba(255,255,255,0.3)" : "rgba(17, 25, 40, 0.75)" }
+      bg={
+        colorMode === "light"
+          ? "rgba(255,255,255,0.3)"
+          : "rgba(17, 25, 40, 0.75)"
+      }
       backdropFilter="blur(12px) saturate(0%)"
-      borderBottom={ colorMode === "light" ? "1px solid rgba(209, 213, 219, 0.3)" : "1px solid rgba(255, 255, 255, 0.125)" }
+      borderBottom={
+        colorMode === "light"
+          ? "1px solid rgba(209, 213, 219, 0.3)"
+          : "1px solid rgba(255, 255, 255, 0.125)"
+      }
       minH="8vh"
     >
       <Flex
@@ -122,9 +130,9 @@ export const WithSubnavigation = (props) => {
           </Button>
         )}
 
-        <Button onClick={toggleColorMode} ml={2} variant="ghost" rounded="full">
-          { colorMode === "dark" ? <HiSun/> : <HiMoon/> }
-        </Button>
+        <Box onClick={toggleColorMode} ml={2} mr={2} cursor="pointer">
+          {colorMode === "dark" ? <HiSun size="20" /> : <HiMoon size="20" />}
+        </Box>
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>

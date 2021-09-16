@@ -125,6 +125,7 @@ export const WithSubnavigation = (props) => {
             fontSize={"sm"}
             fontWeight={600}
             colorScheme="whatsapp"
+            mr={2}
           >
             Connect Wallet
           </Button>

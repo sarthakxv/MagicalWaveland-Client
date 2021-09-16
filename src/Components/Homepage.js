@@ -32,7 +32,7 @@ export const Homepage = () => {
   const [msgValue, setMsgValue] = React.useState("");
   
   // Address of the contract I deployed on the blockchain
-  const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
+  const contractAddress = "0xB6fff5d1E1f38f7F78DD0e2F9122d20D04B8af61";
   const contractABI = abi.abi;
 
   // check if wallet is available

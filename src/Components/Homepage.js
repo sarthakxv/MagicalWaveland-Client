@@ -11,7 +11,6 @@ import {
   Text,
   Button,
   CloseButton,
-  useColorMode,
   Textarea,
   VStack,
   StackDivider,
@@ -31,9 +30,7 @@ export const Homepage = () => {
   const [alertBox, setAlertBox] = React.useState(false);
   const [waveLoading, setWaveLoading] = React.useState(false);
   const [msgValue, setMsgValue] = React.useState("");
-
-  // Color Mode of Chakra UI
-  const { colorMode } = useColorMode();
+  
   // Address of the contract I deployed on the blockchain
   const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
   const contractABI = abi.abi;

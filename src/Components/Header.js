@@ -39,7 +39,10 @@ export const WithSubnavigation = (props) => {
       top="0"
       bg={useColorModeValue("rgba(255,255,255,0.3)", "rgba(17, 25, 40, 0.75)")}
       backdropFilter="blur(12px) saturate(0%)"
-      borderBottom={useColorModeValue("1px solid rgba(209, 213, 219, 0.3)","1px solid rgba(255, 255, 255, 0.125)")}
+      // borderBottom={useColorModeValue(
+      //   "1px solid rgba(209, 213, 219, 0.3)",
+      //   "1px solid rgba(255, 255, 255, 0.125)"
+      // )}
       minH="8vh"
     >
       <Flex

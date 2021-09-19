@@ -14,7 +14,7 @@ import {
   Textarea,
   VStack,
   StackDivider,
-  useColorModeValue
+  useColorModeValue,
 } from "@chakra-ui/react";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -30,7 +30,7 @@ export const Homepage = () => {
   const [alertBox, setAlertBox] = React.useState(false);
   const [waveLoading, setWaveLoading] = React.useState(false);
   const [msgValue, setMsgValue] = React.useState("");
-  
+
   // Address of the contract I deployed on the blockchain
   const contractAddress = "0xB6fff5d1E1f38f7F78DD0e2F9122d20D04B8af61";
   const contractABI = abi.abi;
@@ -50,7 +50,7 @@ export const Homepage = () => {
       if (accounts.length !== 0) {
         // as accounts isn't empty, picking the first one
         const account = accounts[0];
-        
+
         // console.log("Authorized account found: ", account);
 
         // Storing the user's public wallet address for later
@@ -259,33 +259,39 @@ const AlertBox = (props) => (
 const WaveDisplay = (props) => {
   return (
     <VStack
-      divider={<StackDivider borderColor={useColorModeValue("gray.200", "gray.700")} />}
+      divider={
+        <StackDivider borderColor={useColorModeValue("gray.200", "gray.700")} />
+      }
       spacing="2"
       align="center"
     >
-      {props.allWaves.map((wave, index) => (
-        <Box p={2} m={2} w="75%" key={index}>
-          <Box
-            bgColor={props.colorMode("green.100", "#60846A")}
-            p={4}
-            key={index}
-            rounded="lg"
-            boxShadow="0 5px 9px -1px rgba(0,0,0,0.21)"
-            border="1px"
-            borderColor={props.colorMode("#DAF6E2", "#8AAF94")}
-          >
-            <Text>
-              <b>Address:</b> {wave.address}
-            </Text>
-            <Text>
-              <b>Time:</b> {wave.timestamp.toString()}
-            </Text>
-            <Text>
-              <b>Message:</b> {wave.message}
-            </Text>
+      {props.allWaves.map((wave, index) => {
+        return wave.address !== "0xe888424bD9A4Ab89EB2Bb2Ea3CD44c537060C8d4" ? (
+          <Box p={2} m={2} w="75%" key={index}>
+            <Box
+              bgColor={props.colorMode("green.100", "#60846A")}
+              p={4}
+              key={index}
+              rounded="lg"
+              boxShadow="0 5px 9px -1px rgba(0,0,0,0.21)"
+              border="1px"
+              borderColor={props.colorMode("#DAF6E2", "#8AAF94")}
+            >
+              <Text>
+                <b>Address:</b> {wave.address}
+              </Text>
+              <Text>
+                <b>Time:</b> {wave.timestamp.toString()}
+              </Text>
+              <Text>
+                <b>Message:</b> {wave.message}
+              </Text>
+            </Box>
           </Box>
-        </Box>
-      ))}
+        ) : (
+          ""
+        );
+      })}
     </VStack>
   );
 };
@@ -297,12 +303,12 @@ const TextInputArea = (props) => (
       onChange={props.handleInputChange}
       placeholder="Your message..."
       size="lg"
-      border="1px"
-      borderColor="#808A91"
+      border="1px solid #808A91"
       rounded="md"
       outline="none"
-      bgColor={ props.colorMode("white", "#1A202C") }
+      bgColor={props.colorMode("white", "#1A202C")}
       resize="none"
+      zIndex={-1}
     />
   </Box>
 );

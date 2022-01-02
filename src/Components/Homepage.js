@@ -39,19 +39,11 @@ export const Homepage = () => {
   const checkWalletConnection = () => {
     const { ethereum } = window;
 
-    // if (!ethereum) {
-    //   console.log("Make sure you've metamask installed");
-    // } else {
-    //   console.log(`Great! The ethereum object is here: `, ethereum);
-    // }
-
     // checking if we're authorized to access user's wallet
     ethereum.request({ method: "eth_accounts" }).then((accounts) => {
       if (accounts.length !== 0) {
         // as accounts isn't empty, picking the first one
         const account = accounts[0];
-
-        // console.log("Authorized account found: ", account);
 
         // Storing the user's public wallet address for later
         setCurrentAccount(account);
@@ -63,20 +55,22 @@ export const Homepage = () => {
   };
 
   // Connect your metamask wallet to your dapp
-  const connectWallet = () => {
-    const { ethereum } = window;
+  const connectWallet = async () => {
+    try {
+      const { ethereum } = window;
 
-    if (!ethereum) {
-      alert("Install metamask!");
+      if (!ethereum) {
+        alert("Install metamask!");
+        return;
+      }
+
+      const accounts = await ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      setCurrentAccount(accounts[0]);
+    } catch (error) {
+      alert(error);
     }
-
-    ethereum
-      .request({ method: "eth_requestAccounts" })
-      .then((accounts) => {
-        // console.log("Connected: ", accounts[0]);
-        setCurrentAccount(accounts[0]);
-      })
-      .catch((err) => console.log("Error: ", err));
   };
 
   const wave = async () => {
@@ -129,11 +123,9 @@ export const Homepage = () => {
         message: wave[1],
       });
     });
-    // console.log("Waves cleaned: ", waves);
     setAllWaves(wavesCleaned);
 
     wavePortalContract.on("NewWave", (from, timestamp, message) => {
-      // console.log("NewWave: ", from, timestamp, message);
       setAllWaves((oldArray) => [
         ...oldArray,
         {
@@ -176,19 +168,18 @@ export const Homepage = () => {
           direction="column"
           p={8}
           m="45px 15px"
-          maxW="600"
-          rounded="xl"
+          maxW="700"
         >
           <Text fontSize="4xl" textAlign="center" fontWeight="bold">
             <span role="img" aria-label="wave">
               👋
             </span>{" "}
-            Hello, I'm a decentralized bot
+            hello, this is sarthak's waving space
           </Text>
-          <Text fontSize="md" mt={4} textAlign="center">
-            I'm Sarthak, currently exploring Blockchain Rabbit-hole.
+          <Text fontSize="lg" my={4} textAlign="center" fontWeight="semibold">
+            I'm Sarthak, frontend developer, exploring blockchain, reading some fiction.
           </Text>
-          <Text fontSize="md" textAlign="center">
+          <Text fontSize="lg" textAlign="center">
             Connect your Ethereum wallet via Metamask (Use Rinkeby Network) and
             wave at me!
           </Text>
@@ -297,18 +288,18 @@ const WaveDisplay = (props) => {
 };
 
 const TextInputArea = (props) => (
-  <Box m={4} w="80%">
+  <Box m={4} w="70%">
     <Textarea
       value={props.value}
       onChange={props.handleInputChange}
       placeholder="Your message..."
       size="lg"
       border="1px solid #808A91"
+      outlineColor="none"
       rounded="md"
       outline="none"
       bgColor={props.colorMode("white", "#1A202C")}
       resize="none"
-      zIndex={-1}
     />
   </Box>
 );

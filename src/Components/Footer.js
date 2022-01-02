@@ -27,7 +27,20 @@ const Footer = () => {
         justify={{ base: "center", md: "space-between" }}
         align={{ base: "center", md: "center" }}
       >
-        <Text>© {new Date().getFullYear()} Made by Sarthak Verma</Text>
+        <Text>
+          © {new Date().getFullYear()} Made by{" "}
+          <Text
+            as="a"
+            _hover={{
+              textDecoration: "underline"
+            }}
+            href="https://twitter.com/0xSarthak"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            Sarthak Verma
+          </Text>
+        </Text>
         <Stack direction={"row"} spacing={4}>
           <SocialButton label="Twitter" href="https://twitter.com/srthkv">
             <FaTwitter />
